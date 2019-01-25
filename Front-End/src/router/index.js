@@ -4,8 +4,10 @@ import Login from '@/components/login'
 import Home from '@/components/home'
 import Profile from '@/components/profile'
 import ListBooking from '@/components/list-booking'
+import RegisterMember from '@/components/registerMember'
+import RegisterDriver from '@/components/registerDriver'
 
-Vue.use(Router)
+Vue.use(Router);
 
 import data from '../database.js'
 
@@ -41,6 +43,14 @@ export default new Router({
     {
       path: '/login',
       component: Login
+    },
+    {
+      path: '/registerDriver',
+      component: RegisterDriver
+    },
+    {
+      path: '/registerMember',
+      component: RegisterMember
     },
     {
       path: '/profile',

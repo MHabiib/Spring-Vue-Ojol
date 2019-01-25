@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <sui-menu pointing secondary class="no-margin-bottom padding-top-bottom bg-white menu-utama">
-      <div is="sui-container">
+    <sui-menu pointing secondary class="no-margin-bottom padding-top-bottom bg-white menu-utama" >
+      <div is="sui-container" >
         <a
           is="sui-menu-item"
           v-for="item in items"
@@ -10,7 +10,7 @@
           :content="item.title"
           @click="select(item)"
         />
-        <sui-menu-menu position="right" v-if="adaYangLogin">
+        <sui-menu-menu position="right" v-if="!adaYangLogin">
           <a
             is="sui-menu-item"
             :active="isActive('Logout')"
@@ -18,74 +18,68 @@
             @click="logout"
           />
         </sui-menu-menu>
-        <sui-menu-menu position="right" v-if="!adaYangLogin">
+        <sui-menu-menu position="right" v-if="adaYangLogin">
           <a
             is="sui-menu-item"
             :active="isActive('Login')"
+
             content="Login"
             @click="select({link: '/login'})"
           />
-        </sui-menu-menu>
+        </sui-menu-menu >
       </div>
-      
-    </sui-menu>
+
+    </sui-menu >
     <router-view/>
   </div>
 </template>
 
 <script>
-import data from './database.js'
-
-export default {
-  name: 'App',
-  data() {
-    return {
-      adaYangLogin: false,
-      active: 'Home',
-      items: [
-        {
-          title: 'Home',
-          link: '/home'
-        },
-        {
-          title:'List Booking',
-          link: '/list-booking'
-        },
-        {
-          title:' Profile',
-          link: '/profile'
-        },
-        {
-
-        }],
-    };
-  },
-  methods: {
-    isActive(name) {
-      return this.active === name;
+  import data from './database.js'
+  export default {
+    name: 'App',
+    data() {
+      return {
+        adaYangLogin: false,
+        active: 'Home',
+        items: [
+          {
+            title: 'Home',
+            link: '/home'
+          },
+          {
+            title:'List Booking',
+            link: '/list-booking'
+          },
+          {
+            title:' Profile',
+            link: '/profile'
+          }],
+      };
     },
-    select(item) {
-      this.active = item.title 
-      this.$router.push(item.link)
+    methods: {
+      isActive(name) {
+        return this.active === name;
+      },
+      select(item) {
+        this.active = item.title
+        this.$router.push(item.link)
+      },
+      logout () {
+        data.user = {};
+        this.$router.push('/login')
+      }
     },
-    logout () {
-      data.user = {}
-      this.$router.push('/login')
+    updated: function() {
+      this.adaYangLogin = !!data.user
     }
-  },
-  updated: function() {
-    this.adaYangLogin = !!data.user
   }
-}
 </script>
 <style scoped>
-.no-margin-bottom{
-  margin-bottom: 0;
-}
-.padding-top-bottom{
-  padding: 1rem 0;
-}
-
+  .no-margin-bottom{
+    margin-bottom: 0;
+  }
+  .padding-top-bottom{
+    padding: 1rem 0;
+  }
 </style>
-
-

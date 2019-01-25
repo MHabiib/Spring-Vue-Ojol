@@ -13,3 +13,7 @@ body{
 .ui.image{
     background-image: url("https://semantic-ui-vue.github.io/static/images/wireframes/image.png")
 }
+.floating{
+  position: relative;
+  top: -2rem
+}
