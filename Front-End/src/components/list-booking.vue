@@ -18,6 +18,11 @@
 
             <sui-grid-column :width="6" vertical-align="middle">
               <h2 is="sui-header">{{user.nama}}</h2>
+
+              <div>
+                <li v-for=""booking in bookings>{{booking.driverId}}</li>
+              </div>
+
               <sui-icon size="small" name="map marker alternate" /> Destination
             </sui-grid-column>
 
@@ -40,7 +45,7 @@
   import data from '../database.js'
   import axios from 'axios'
   export default {
-    data() {
+    /*data() {
       return{
         user:{
           username: '',
@@ -50,6 +55,13 @@
           value: ''
         }
       }
+    },*/
+    data:{
+      bookings:[],
+    },mounted(){
+      fetch("http://localhost:8080/booking")
+        .then(response => response.json())
+        .then((data)=>{this.bookings=data})
     },
     methods:{
       cancel(){

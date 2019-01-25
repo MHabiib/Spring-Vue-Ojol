@@ -18,7 +18,7 @@
               </sui-form-field>
               <sui-form-field>
                 <label>Drop off</label>
-                <input type="text" placeholder="I'm going to..." required v-model="addBooking.dropoff)">
+                <input type="text" placeholder="I'm going to..." required v-model="addBooking.dropoff">
               </sui-form-field>
 
               <sui-form-fields inline>
@@ -124,16 +124,18 @@
             .catch(e => {
               console.log(e);
             });
-
           console.log(this.registerMember.success);
         },
-	created() {
-      if (data.user) {
-        this.user.name = data.user.name;
-        this.user.balance = data.user.balance;
-        this.user.role = data.user.role
+      created() {
+          if (data.user) {
+            this.user.name = data.user.name;
+            this.user.balance = data.user.balance;
+            this.user.role = data.user.role
+          }
+        }
       }
-	}}}
+    }
+  }
 </script>
 <style scoped>
 .bg1{
