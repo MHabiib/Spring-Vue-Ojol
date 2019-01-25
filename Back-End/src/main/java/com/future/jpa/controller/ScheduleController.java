@@ -34,7 +34,7 @@ public class ScheduleController {
 
     @PostMapping("/start")
     ResponseEntity<Void> start(@RequestBody Booking booking) {
-        int FIXED_RATE=30000;
+        int FIXED_RATE=86400000;
         scheduledFuture = taskScheduler.scheduleAtFixedRate(createSchedule(booking), FIXED_RATE);
         return new ResponseEntity<>(HttpStatus.OK);
     }

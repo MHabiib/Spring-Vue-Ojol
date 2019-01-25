@@ -10,7 +10,6 @@ public class LoginResponse {
     private String role;
     private boolean success;
     private String email;
-    private String stnk;
 
     public String getName() {
         return name;
@@ -50,13 +49,5 @@ public class LoginResponse {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getStnk() {
-        return stnk;
-    }
-
-    public void setStnk(String stnk) {
-        this.stnk = stnk;
     }
 }

@@ -22,13 +22,15 @@ public class LoginServiceImpl implements LoginService {
     public LoginResponse authenticate(@RequestBody LoginRequest request) {
         LoginResponse a = new LoginResponse();
         Member memberData = memberRepository.findByEmail(request.getEmail());
+        System.out.println(request.getEmail());
+        System.out.println(memberData);
         if(memberData!=null){
             if (request.getEmail().equals(memberData.getEmail())&& request.getPassword().equals(memberData.getPassword())){
                 a.setSuccess(true);
                 a.setName(memberData.getName());
                 a.setBalance(memberData.getBalance());
-                a.setEmail(memberData.getEmail());
                 a.setRole("MEMBER");
+                a.setEmail(memberData.getEmail());
                 return a;
             }
             else {
@@ -42,9 +44,8 @@ public class LoginServiceImpl implements LoginService {
                 a.setSuccess(true);
                 a.setName(driverData.getName());
                 a.setBalance(driverData.getBalance());
-                a.setEmail(driverData.getEmail());
-                a.setStnk(driverData.getStnk());
                 a.setRole("DRIVER");
+                a.setEmail(driverData.getEmail());
                 return a;
             }
             else {

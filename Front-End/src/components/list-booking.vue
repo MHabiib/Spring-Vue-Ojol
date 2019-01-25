@@ -38,6 +38,7 @@
 
 <script>
   import data from '../database.js'
+  import axios from 'axios'
   export default {
     data() {
       return{

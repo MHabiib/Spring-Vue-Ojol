@@ -41,8 +41,8 @@ export default {
   data() {
 		return{
       login:{
-        email: '',
-        password: '',
+        email: 'sana@jwp.com',
+        password: 'sana123',
         success:'false'
       }
 		}
@@ -55,6 +55,7 @@ export default {
         email: this.login.email,
         password: this.login.password
       };
+      console.log(data)
       http
         .post("/auth/login", data)
         .then(response => {
@@ -64,6 +65,7 @@ export default {
           this.login.success = response.data.success;
           if (this.login.success==true){
               let userData = user.user;
+              console.log(userData);
               Object.assign(userData,response.data)
             // console.log(userData)
             this.$router.push('/home');
@@ -74,7 +76,6 @@ export default {
         .catch(e => {
           console.log(e);
         });
-
       console.log(this.login.success);
     }
   }

@@ -13,5 +13,8 @@ import javax.persistence.*;
     private Integer driverId;
     private Double price;
     private String status;
+    private String pickup;
+    private String dropoff;
+    private String paymentMethod;
 }
 

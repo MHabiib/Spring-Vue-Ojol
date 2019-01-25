@@ -35,7 +35,9 @@ public class BookingServiceImpl implements BookingService {
         booking.setMemberId(booking.getMemberId());
         booking.setPrice((Math.floor(Math.random()*((100000)))));
         booking.setStatus("PENDING");
-
+        booking.setPickup(booking.getPickup());
+        booking.setDropoff(booking.getDropoff());
+        booking.setPaymentMethod(booking.getPaymentMethod());
         return bookingRepository.save(booking);
     }
 
