@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <sui-menu pointing secondary class="no-margin-bottom padding-top-bottom bg-white">
+    <sui-menu pointing secondary class="no-margin-bottom padding-top-bottom bg-white menu-utama">
       <div is="sui-container">
         <a
           is="sui-menu-item"
@@ -48,12 +48,15 @@ export default {
           link: '/home'
         },
         {
+          title:'List Booking',
+          link: '/list-booking'
+        },
+        {
           title:' Profile',
           link: '/profile'
         },
         {
-          title:'Friends',
-          link: '/friends'
+
         }],
     };
   },
@@ -66,7 +69,7 @@ export default {
       this.$router.push(item.link)
     },
     logout () {
-      data.user = null
+      data.user = {}
       this.$router.push('/login')
     }
   },
@@ -82,6 +85,7 @@ export default {
 .padding-top-bottom{
   padding: 1rem 0;
 }
+
 </style>
 
 

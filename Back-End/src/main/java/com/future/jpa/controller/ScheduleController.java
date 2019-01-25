@@ -13,14 +13,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.awt.print.Book;
 import java.time.Instant;
 import java.util.concurrent.ScheduledFuture;
+@CrossOrigin
 @Controller
 @Configuration
 @EnableAsync
@@ -32,16 +30,14 @@ public class ScheduleController {
     @Autowired
     BookingController bookingController;
 
-    public static final long FIXED_RATE = 10000;
-
     ScheduledFuture<?> scheduledFuture;
 
     @PostMapping("/start")
     ResponseEntity<Void> start(@RequestBody Booking booking) {
-        scheduledFuture = taskScheduler.scheduleAtFixedRate(printHour(booking), FIXED_RATE);
+        int FIXED_RATE=30000;
+        scheduledFuture = taskScheduler.scheduleAtFixedRate(createSchedule(booking), FIXED_RATE);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 
     @PostMapping("/stop")
     ResponseEntity<Void> stop() {
@@ -49,7 +45,7 @@ public class ScheduleController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    private Runnable printHour(@RequestBody Booking booking) {
+    private Runnable createSchedule(@RequestBody Booking booking) {
         return () -> bookingController.createBooking(booking);
     }
 

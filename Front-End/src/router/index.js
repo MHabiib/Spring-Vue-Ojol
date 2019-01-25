@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from '@/components/login'
 import Home from '@/components/home'
 import Profile from '@/components/profile'
+import ListBooking from '@/components/list-booking'
 
 Vue.use(Router)
 
@@ -19,7 +20,18 @@ export default new Router({
       path:'/home',
       component: Home,
       beforeEnter: (to, from, next) => {
-        if (!data.user){
+        if (!data.user.success){
+          next('/login')
+        } else {
+          next()
+        }
+      }
+    },
+    {
+      path: '/list-booking',
+      component: ListBooking,
+      beforeEnter: (to, from, next) => {
+        if (!data.user.success){
           next('/login')
         } else {
           next()
@@ -32,7 +44,14 @@ export default new Router({
     },
     {
       path: '/profile',
-      component: Profile
+      component: Profile,
+      beforeEnter: (to, from, next) => {
+        if (!data.user.success){
+          next('/login')
+        } else {
+          next()
+        }
+      }
     }
   ]
 })

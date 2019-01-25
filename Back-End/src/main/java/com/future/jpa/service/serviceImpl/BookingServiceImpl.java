@@ -2,6 +2,7 @@ package com.future.jpa.service.serviceImpl;
 
 import com.future.jpa.model.Booking;
 import com.future.jpa.repository.BookingRepository;
+import com.future.jpa.repository.DriverRepository;
 import com.future.jpa.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,9 @@ public class BookingServiceImpl implements BookingService {
     @Autowired
     private BookingRepository bookingRepository;
 
+    @Autowired
+    DriverRepository driverRepository;
+
     @Override
     public List<Booking> loadAll() {
         return bookingRepository.findAll();
@@ -29,7 +33,9 @@ public class BookingServiceImpl implements BookingService {
         booking.setId(booking.getId());
         booking.setDriverId(booking.getDriverId());
         booking.setMemberId(booking.getMemberId());
-        booking.setPrice((Math.random()*((10000-99000))));
+        booking.setPrice((Math.floor(Math.random()*((100000)))));
+        booking.setStatus("PENDING");
+
         return bookingRepository.save(booking);
     }
 
