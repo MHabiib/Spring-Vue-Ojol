@@ -13,7 +13,7 @@
                   <sui-image src="https://semantic-ui-vue.github.io/static/images/avatar/large/matthew.png" size="small" circular />
                   <div class="content">
                     <div class="header">{{result.name}}</div>
-                    {{result.stnk}}&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
+                    {{result.stnk}}&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
                   </div>
                 </div>
               </div>
@@ -36,6 +36,21 @@
     },async mounted(){
       const response = await axios.get('http://localhost:8080/driver')
       this.results=response.data
+    },onSubmit(event) {
+      event.preventDefault();
+      var data = {
+        pickup:this.addBooking.pickup,
+        dropoff: this.addBooking.dropoff,
+        paymentMethod: this.addBooking.paymentMethod,
+        driverId: this.addBooking.driverId,
+        memberId: this.addBooking.memberId,
+        status:'PENDING'
+      };
+      http
+        .put("/booking/", data)
+        .catch(e => {
+          console.log(e);
+        })
     }
   }
 </script>

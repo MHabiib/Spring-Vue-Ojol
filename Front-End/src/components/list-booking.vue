@@ -22,8 +22,9 @@
               Payment Method : {{result.paymentMethod}}<br/>
               Status : {{result.status}}</h4>
             </div><br/>
-            <div class="ui button">Accept</div>
-            <div class="ui button">Cancel</div>
+            <div class="ui button" @click="onSubmit(result.id)">Accept</div>
+            <div class="ui button" @click="onSubmit2(result.id)">Cancel</div>
+            <div class="ui button" @click="onSubmit3(result.id)">Reject</div>
             <br/>
           </div>
 
@@ -40,18 +41,72 @@
 
 <script>
   import axios from 'axios'
+  import http from '../http-common.js'
 
   export default {
     name: 'BookingList',
     data(){
       return {
         results:[]
-      }
+        ,transaction:{
+          bookingId:'',
+          name:'',
+          status:'',
+          stnk:'',
+          paymentMethod:''
+        }}
     },async mounted(){
       const response = await axios.get('http://localhost:8080/booking')
       this.results=response.data
+    },methods: {
+      onSubmit(i) {
+        var data = {
+          name:this.result.memberName[i],
+          status: "ACCEPTED",
+          stnk: this.result.stnk[i],
+          paymentMethod:this.result.paymentMethod[i],
+          bookingId:this.result.bookingId[i]
+        };
+        http
+          .post("/transaction/process", data)
+          .catch(e => {
+            console.log(e);
+          });
+        console.log(this.registerDriver.success);
+        console.log(data)
+      },onSubmit2(event) {
+        event.preventDefault();
+        var data = {
+          name:this.result.memberName[i],
+          status: "CANCEL",
+          stnk: this.result.stnk[i],
+          paymentMethod:this.result.paymentMethod[i],
+          bookingId:this.result.bookingId[i]
+        };
+        http
+          .post("/transaction/process", data)
+          .catch(e => {
+            console.log(e);
+          });
+        console.log(this.registerDriver.success);
+      },onSubmit3(event) {
+        event.preventDefault();
+        var data = {
+          name:this.result.memberName[i],
+          status: "REJECTED",
+          stnk: this.result.stnk[i],
+          paymentMethod:this.result.paymentMethod[i],
+          bookingId:this.result.bookingId[i]
+        };
+        http
+          .post("/transaction/process", data)
+          .catch(e => {
+            console.log(e);
+          });
+        console.log(this.registerDriver.success);
+      }
     }
-  }
+  };
 </script>
 <style scoped>
   .bg1{

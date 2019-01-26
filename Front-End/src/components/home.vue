@@ -20,7 +20,6 @@
                 <label>Drop off</label>
                 <input type="text" placeholder="I'm going to..." required v-model="addBooking.dropoff">
               </sui-form-field>
-
               <sui-form-fields inline>
                 <sui-form-field>
                   <label>Payment Method</label>
@@ -42,7 +41,7 @@
                 </sui-form-field>
               </sui-form-fields>
 
-              <sui-button type="submit" primary>Book Now</sui-button>
+              <sui-button @click="$router.push('list-booking')" type="submit" primary>Book Now</sui-button>
               <sui-button  @click="onSubmit2" floated="right">Book Everyday</sui-button>
 
             </sui-form>
