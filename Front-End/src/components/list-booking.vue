@@ -9,40 +9,26 @@
   <sui-container class="padding-top floating">
     <sui-segment raised class="jarak-padding">
 
-      <sui-comment-group>
-        <sui-comment>
-          <sui-grid>
-          <sui-grid-column :width="4" vertical-align="middle">
-            <sui-image src="https://semantic-ui-vue.github.io/static/images/avatar/large/matthew.png" size="tiny" circular />
-          </sui-grid-column>
+      <div class="ui middle aligned divided list" v-for="result in results" :key="result.id">
+        <div class="item">
+          <div >
+            <div class="content" >
+              <br/><h4>Booking ID : {{result.id}}</h4>
+              <h4>Booked By : {{result.memberName}} <br/>
+              Driver : {{result.driverName}} <br/>
+              Price : {{result.price}}<br/>
+              Pickup Location : {{result.pickup}}  -------------->
+              Destination : {{result.dropoff}}<br/>
+              Payment Method : {{result.paymentMethod}}<br/>
+              Status : {{result.status}}</h4>
+            </div><br/>
+            <div class="ui button">Accept</div>
+            <div class="ui button">Cancel</div>
+            <br/>
+          </div>
 
-          <sui-grid-column :width="6" vertical-align="middle">
-
-            <sui-icon size="small" name="map marker alternate" /> Destination
-          </sui-grid-column>
-
-          <sui-grid-column :width="6" vertical-align="middle">
-            <sui-button negative @click="cancel()" floated="right">Cancel</sui-button>
-          </sui-grid-column>
-        </sui-grid>
-
-          <sui-grid>
-            <sui-grid-column :width="4" vertical-align="middle">
-              <sui-image src="https://semantic-ui-vue.github.io/static/images/avatar/large/matthew.png" size="tiny" circular />
-            </sui-grid-column>
-
-            <sui-grid-column :width="6" vertical-align="middle">
-
-              <sui-icon size="small" name="map marker alternate" /> Destination
-            </sui-grid-column>
-
-            <sui-grid-column :width="6" vertical-align="middle">
-              <sui-button negative @click="cancel()" floated="right">Cancel</sui-button>
-            </sui-grid-column>
-          </sui-grid>
-
-        </sui-comment>
-      </sui-comment-group>
+        </div>
+      </div>
 
 
     </sui-segment>
@@ -53,7 +39,19 @@
 </template>
 
 <script>
+  import axios from 'axios'
 
+  export default {
+    name: 'BookingList',
+    data(){
+      return {
+        results:[]
+      }
+    },async mounted(){
+      const response = await axios.get('http://localhost:8080/booking')
+      this.results=response.data
+    }
+  }
 </script>
 <style scoped>
   .bg1{

@@ -49,6 +49,11 @@ public class TransactionServiceImpl implements TransactionService {
                 bookingRepository.save(bookingData);
                 return true;
             }
+            else if (transaction.getStatus().equals("CANCEL")) {
+                bookingData.setStatus("CANCEL");
+                bookingRepository.save(bookingData);
+                return true;
+            }
         }
         return false;
     }

@@ -7,8 +7,8 @@
     </div>
 
     <sui-container class="padding-top floating">
-      <sui-grid>
-        <sui-grid-column :width="9">
+          <sui-grid>
+            <sui-grid-column :width="22">
           <sui-segment raised class="jarak-padding">
             <sui-form @submit="onSubmit">
               <h3 text-align="right">Booking</h3>
@@ -43,40 +43,11 @@
               </sui-form-fields>
 
               <sui-button type="submit" primary>Book Now</sui-button>
-              <sui-button  v-on:click="onSubmit2" floated="right">Book Everyday</sui-button>
+              <sui-button  @click="onSubmit2" floated="right">Book Everyday</sui-button>
 
             </sui-form>
           </sui-segment>
         </sui-grid-column>
-
-        <!-- List Driver -->
-        <sui-grid-column :width="7">
-          <sui-segment raised class="jarak-padding">
-            <sui-comment-group>
-
-
-              <sui-comment>
-                <sui-comment-avatar src="https://semantic-ui-vue.github.io/static/images/avatar/small/matt.jpg" />
-                <sui-comment-content>
-                  <sui-comment-metadata>
-                    <div>Honda Beat</div>
-                  </sui-comment-metadata>
-                  <sui-comment-text>BK 1234 AA</sui-comment-text>
-                </sui-comment-content>
-              </sui-comment>
-
-
-            </sui-comment-group>
-          </sui-segment>
-        </sui-grid-column>
-
-        <div v-for="result in results" :key="result.id">
-          <div>
-            <div>{{ result.name }}</div>
-            <div>{{ result.email }}</div>
-          </div>
-        </div>
-
       </sui-grid>
     </sui-container>
   </div>
@@ -91,6 +62,7 @@
     name: 'BookingList',
     data(){
       return {
+        onSubmit2:null,
         addBooking: {
           pickup: '',
           dropoff: '',

@@ -7,7 +7,7 @@
   </div>
   <div is="sui-container" class="floating">
     <sui-grid>
-      <sui-grid-column :width="8" is="sui-container">
+      <sui-grid-column :width="13" is="sui-container">
         <sui-segment>
           <sui-form @submit="onSubmit">
             <sui-form-field>

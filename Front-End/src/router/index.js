@@ -4,6 +4,7 @@ import Login from '@/components/login'
 import Home from '@/components/home'
 import Profile from '@/components/profile'
 import ListBooking from '@/components/list-booking'
+import ListDriver from '@/components/list-driver'
 import RegisterMember from '@/components/registerMember'
 import RegisterDriver from '@/components/registerDriver'
 
@@ -40,6 +41,17 @@ export default new Router({
     {
       path: '/list-booking',
       component: ListBooking,
+      beforeEnter: (to, from, next) => {
+        if (!data.user.success){
+          next('/login')
+        } else {
+          next()
+        }
+      }
+    },
+    {
+      path: '/list-driver',
+      component: ListDriver,
       beforeEnter: (to, from, next) => {
         if (!data.user.success){
           next('/login')
