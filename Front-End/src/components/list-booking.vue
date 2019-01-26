@@ -21,7 +21,7 @@
               Payment Method : {{result.paymentMethod}}<br/>
               Status : {{result.status}}</h4>
             </div><br/>
-            <div class="ui button" @click="onSubmit(result.id)">Accept</div>
+            <div class="ui button" @click="onSubmit(result.id)" >Accept</div>
             <div class="ui button" @click="onSubmit2(result.id)">Cancel</div>
             <div class="ui button" @click="onSubmit3(result.id)">Reject</div>
             <br/>
@@ -50,13 +50,20 @@
           status:'',
           stnk:'',
           paymentMethod:''
-        }]}
-    },async mounted(){
+        }],interval:null}
+    },created () {
+      this.interval = setInterval(this.mounted, 1000)
+    },
+    beforeDestroy () {
+      clearInterval(this.interval)
+    },
+    async mounted(){
       const response = await axios.get('http://localhost:8080/booking')
       this.results=response.data
     },methods: {
       onSubmit(i) {
         console.log(i)
+
         this.transaction.bookingId=i
         this.transaction.status="ACCEPTED"
         var data = {
@@ -66,11 +73,15 @@
         console.log(data)
         http
           .post("/transaction/process", data)
+          .then()
           .catch(e => {
             console.log(e);
           });
         console.log(this.registerDriver.success);
         console.log(data)
+
+
+
       },onSubmit2(i) {
         console.log(i)
         this.transaction.bookingId=i
@@ -103,7 +114,7 @@
           });
         console.log(this.registerDriver.success);
         console.log(data)
-      }
+      },
     }
   };
 </script>
