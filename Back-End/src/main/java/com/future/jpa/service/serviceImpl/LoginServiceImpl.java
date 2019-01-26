@@ -31,6 +31,7 @@ public class LoginServiceImpl implements LoginService {
                 a.setBalance(memberData.getBalance());
                 a.setRole("MEMBER");
                 a.setEmail(memberData.getEmail());
+                a.setId(memberData.getId());
                 return a;
             }
             else {
@@ -46,6 +47,7 @@ public class LoginServiceImpl implements LoginService {
                 a.setBalance(driverData.getBalance());
                 a.setRole("DRIVER");
                 a.setEmail(driverData.getEmail());
+                a.setId(driverData.getId());
                 return a;
             }
             else {

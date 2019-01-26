@@ -3,6 +3,7 @@ package com.future.jpa.service.serviceImpl;
 import com.future.jpa.model.Booking;
 import com.future.jpa.repository.BookingRepository;
 import com.future.jpa.repository.DriverRepository;
+import com.future.jpa.repository.MemberRepository;
 import com.future.jpa.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,9 @@ public class BookingServiceImpl implements BookingService {
     @Autowired
     DriverRepository driverRepository;
 
+    @Autowired
+    MemberRepository memberRepository;
+
     @Override
     public List<Booking> loadAll() {
         return bookingRepository.findAll();
@@ -32,12 +36,17 @@ public class BookingServiceImpl implements BookingService {
         bookingRepository.save(booking);
         booking.setId(booking.getId());
         booking.setDriverId(booking.getDriverId());
+        booking.setDriverName(driverRepository.findById(booking.getDriverId()).get().getName());
         booking.setMemberId(booking.getMemberId());
+        booking.setMemberName(memberRepository.findById(booking.getMemberId()).get().getName());
         booking.setPrice((Math.floor(Math.random()*((100000)))));
-        booking.setStatus("PENDING");
+        booking.setStatus(booking.getStatus());
         booking.setPickup(booking.getPickup());
         booking.setDropoff(booking.getDropoff());
-        booking.setPaymentMethod(booking.getPaymentMethod());
+        if (booking.getPaymentMethod().equals("1"))
+            booking.setPaymentMethod("BLIPAY");
+        else
+            booking.setPaymentMethod("CASH");
         return bookingRepository.save(booking);
     }
 

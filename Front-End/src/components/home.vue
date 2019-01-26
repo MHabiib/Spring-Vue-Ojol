@@ -2,15 +2,15 @@
 	<div>
     <div class="bg1">
       <sui-container class="padding-top-bottom">
-        <h1 is="sui-header" class="text-white" text-align="center"> Welcome  :)</h1>
+        <h1 is="sui-header" class="text-white" text-align="center">Every Day is a Good Day ... Welcome {{user.name}} :)</h1>
       </sui-container>
     </div>
 
-    <sui-container class="padding-top">
+    <sui-container class="padding-top floating">
       <sui-grid>
         <sui-grid-column :width="9">
           <sui-segment raised class="jarak-padding">
-            <sui-form @submit="book">
+            <sui-form @submit="onSubmit">
               <h3 text-align="right">Booking</h3>
               <sui-form-field>
                 <label>Pickup</label>
@@ -52,21 +52,31 @@
         <!-- List Driver -->
         <sui-grid-column :width="7">
           <sui-segment raised class="jarak-padding">
-
             <sui-comment-group>
+
+
               <sui-comment>
                 <sui-comment-avatar src="https://semantic-ui-vue.github.io/static/images/avatar/small/matt.jpg" />
                 <sui-comment-content>
-                  <a is="sui-comment-author">Lorem</a>
                   <sui-comment-metadata>
                     <div>Honda Beat</div>
                   </sui-comment-metadata>
                   <sui-comment-text>BK 1234 AA</sui-comment-text>
                 </sui-comment-content>
               </sui-comment>
+
+
             </sui-comment-group>
           </sui-segment>
         </sui-grid-column>
+
+        <div v-for="result in results" :key="result.id">
+          <div>
+            <div>{{ result.name }}</div>
+            <div>{{ result.email }}</div>
+          </div>
+        </div>
+
       </sui-grid>
     </sui-container>
   </div>
@@ -80,17 +90,25 @@
   export default {
     name: 'BookingList',
     data(){
-      return{
-        addBooking:{
-          pickup:'',
-          dropoff:'',
-          paymentMethod:'',
-          driverId:'10035',
-          memberId:'',
-          status:'PENDING',
-        }
+      return {
+        addBooking: {
+          pickup: '',
+          dropoff: '',
+          paymentMethod: '',
+          driverId: 10035,
+          memberId: data.user.id,
+          status: '',
+        },
+        user:{
+          name:data.user.name
+        },
+        results:[]
       }
-    },methods: {
+    },async mounted(){
+      const response = await axios.get('http://localhost:8080/driver')
+      this.results=response.data
+    },
+    methods: {
       onSubmit(event) {
         event.preventDefault();
         var data = {
@@ -98,16 +116,14 @@
           dropoff: this.addBooking.dropoff,
           paymentMethod: this.addBooking.paymentMethod,
           driverId: this.addBooking.driverId,
-          memberId: this.memberId
+          memberId: this.addBooking.memberId,
+          status:'PENDING'
         };
         http
           .post("/booking/create", data)
-          .then(this.$router.push('/home'))
           .catch(e => {
             console.log(e);
           });
-
-        console.log(this.registerMember.success);
       },methods: {
         onSubmit2(event) {
           event.preventDefault();
@@ -116,23 +132,15 @@
             dropoff: this.addBooking.dropoff,
             paymentMethod: this.addBooking.paymentMethod,
             driverId: this.addBooking.driverId,
-            memberId: this.memberId
+            memberId: this.addBooking.memberId,
+            status:'PENDING'
           };
           http
             .post("/start", data)
-            .then(this.$router.push('/home'))
             .catch(e => {
               console.log(e);
             });
-          console.log(this.registerMember.success);
         },
-      created() {
-          if (data.user) {
-            this.user.name = data.user.name;
-            this.user.balance = data.user.balance;
-            this.user.role = data.user.role
-          }
-        }
       }
     }
   }
@@ -149,7 +157,7 @@
 }
 .floating{
 	position: relative;
-	top: -2rem
+	top: -4rem
 }
 .padding-top{
 	padding-top: 2rem;

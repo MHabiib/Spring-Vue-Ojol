@@ -35,6 +35,7 @@ public class ScheduleController {
     @PostMapping("/start")
     ResponseEntity<Void> start(@RequestBody Booking booking) {
         int FIXED_RATE=86400000;
+
         scheduledFuture = taskScheduler.scheduleAtFixedRate(createSchedule(booking), FIXED_RATE);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -48,22 +49,4 @@ public class ScheduleController {
     private Runnable createSchedule(@RequestBody Booking booking) {
         return () -> bookingController.createBooking(booking);
     }
-
-    /*@PostMapping("/start")
-    ResponseEntity<Void> start(@RequestBody Booking booking) {
-        scheduledFuture = taskScheduler.scheduleAtFixedRate(printHour(booking), FIXED_RATE);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-
-    @PostMapping("/stop")
-    ResponseEntity<Void> stop() {
-        scheduledFuture.cancel(false);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    private Runnable printHour(@RequestBody Booking booking) {
-        return () -> bookingController.createBooking(booking);
-    }*/
-
 }

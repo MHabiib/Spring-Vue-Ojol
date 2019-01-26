@@ -13,6 +13,11 @@ import data from '../database.js'
 
 export default new Router({
   mode: 'history',
+  data:{
+    cekUser:{
+      role:data.user.role
+    }
+  },
   routes: [
     {
       path: '/',
@@ -25,7 +30,10 @@ export default new Router({
         if (!data.user.success){
           next('/login')
         } else {
-          next()
+          if(data.user.role==="DRIVER")
+          next('list-booking')
+          else
+            next()
         }
       }
     },

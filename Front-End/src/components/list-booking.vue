@@ -6,22 +6,32 @@
   </sui-container>
 </div>
 <div>
-  <sui-container class="padding-top">
+  <sui-container class="padding-top floating">
     <sui-segment raised class="jarak-padding">
 
       <sui-comment-group>
         <sui-comment>
+          <sui-grid>
+          <sui-grid-column :width="4" vertical-align="middle">
+            <sui-image src="https://semantic-ui-vue.github.io/static/images/avatar/large/matthew.png" size="tiny" circular />
+          </sui-grid-column>
+
+          <sui-grid-column :width="6" vertical-align="middle">
+
+            <sui-icon size="small" name="map marker alternate" /> Destination
+          </sui-grid-column>
+
+          <sui-grid-column :width="6" vertical-align="middle">
+            <sui-button negative @click="cancel()" floated="right">Cancel</sui-button>
+          </sui-grid-column>
+        </sui-grid>
+
           <sui-grid>
             <sui-grid-column :width="4" vertical-align="middle">
               <sui-image src="https://semantic-ui-vue.github.io/static/images/avatar/large/matthew.png" size="tiny" circular />
             </sui-grid-column>
 
             <sui-grid-column :width="6" vertical-align="middle">
-              <h2 is="sui-header">{{user.nama}}</h2>
-
-              <div>
-                <li v-for=""booking in bookings>{{booking.driverId}}</li>
-              </div>
 
               <sui-icon size="small" name="map marker alternate" /> Destination
             </sui-grid-column>
@@ -30,6 +40,7 @@
               <sui-button negative @click="cancel()" floated="right">Cancel</sui-button>
             </sui-grid-column>
           </sui-grid>
+
         </sui-comment>
       </sui-comment-group>
 
@@ -42,40 +53,7 @@
 </template>
 
 <script>
-  import data from '../database.js'
-  import axios from 'axios'
-  export default {
-    /*data() {
-      return{
-        user:{
-          username: '',
-          password: '',
-          nama: '',
-          email: '',
-          value: ''
-        }
-      }
-    },*/
-    data:{
-      bookings:[],
-    },mounted(){
-      fetch("http://localhost:8080/booking")
-        .then(response => response.json())
-        .then((data)=>{this.bookings=data})
-    },
-    methods:{
-      cancel(){
-      }
-    },
-    created() {
-      if (data.user) {
-        this.user.username = data.user.username
-        this.user.password = data.user.password
-        this.user.nama = data.user.nama,
-          this.user.email = data.user.email
-      }
-    }
-  };
+
 </script>
 <style scoped>
   .bg1{
@@ -89,7 +67,7 @@
   }
   .floating{
     position: relative;
-    top: -2rem
+    top: -4rem
   }
   .padding-top{
     padding-top: 2rem;

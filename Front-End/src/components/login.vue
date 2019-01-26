@@ -41,8 +41,8 @@ export default {
   data() {
 		return{
       login:{
-        email: 'sana@jwp.com',
-        password: 'sana123',
+        email: 'mina@jwp.com',
+        password: 'mina123',
         success:'false'
       }
 		}
@@ -63,6 +63,7 @@ export default {
           this.login.balance = response.data.balance;
           this.login.role = response.data.role;
           this.login.success = response.data.success;
+          this.login.id=response.data.id;
           if (this.login.success==true){
               let userData = user.user;
               console.log(userData);
