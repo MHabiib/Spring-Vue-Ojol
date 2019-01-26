@@ -8,8 +8,7 @@
 <div>
   <sui-container class="padding-top floating">
     <sui-segment raised class="jarak-padding">
-
-      <div class="ui middle aligned divided list" v-for="result in results" :key="result.id">
+      <div class="ui middle aligned divided list" v-for="result in results" :key="result.id" >
         <div class="item">
           <div >
             <div class="content" >
@@ -27,11 +26,8 @@
             <div class="ui button" @click="onSubmit3(result.id)">Reject</div>
             <br/>
           </div>
-
         </div>
       </div>
-
-
     </sui-segment>
   </sui-container>
 </div>
@@ -48,25 +44,26 @@
     data(){
       return {
         results:[]
-        ,transaction:{
+        ,transaction:[{
           bookingId:'',
           name:'',
           status:'',
           stnk:'',
           paymentMethod:''
-        }}
+        }]}
     },async mounted(){
       const response = await axios.get('http://localhost:8080/booking')
       this.results=response.data
     },methods: {
       onSubmit(i) {
+        console.log(i)
+        this.transaction.bookingId=i
+        this.transaction.status="ACCEPTED"
         var data = {
-          name:this.result.memberName[i],
-          status: "ACCEPTED",
-          stnk: this.result.stnk[i],
-          paymentMethod:this.result.paymentMethod[i],
-          bookingId:this.result.bookingId[i]
+          status: this.transaction.status,
+          bookingId:this.transaction.bookingId
         };
+        console.log(data)
         http
           .post("/transaction/process", data)
           .catch(e => {
@@ -74,36 +71,38 @@
           });
         console.log(this.registerDriver.success);
         console.log(data)
-      },onSubmit2(event) {
-        event.preventDefault();
+      },onSubmit2(i) {
+        console.log(i)
+        this.transaction.bookingId=i
+        this.transaction.status="CANCEL"
         var data = {
-          name:this.result.memberName[i],
-          status: "CANCEL",
-          stnk: this.result.stnk[i],
-          paymentMethod:this.result.paymentMethod[i],
-          bookingId:this.result.bookingId[i]
+          status: this.transaction.status,
+          bookingId:this.transaction.bookingId
         };
+        console.log(data)
         http
           .post("/transaction/process", data)
           .catch(e => {
             console.log(e);
           });
         console.log(this.registerDriver.success);
-      },onSubmit3(event) {
-        event.preventDefault();
+        console.log(data)
+      },onSubmit3(i) {
+        console.log(i)
+        this.transaction.bookingId=i
+        this.transaction.status="REJECTED"
         var data = {
-          name:this.result.memberName[i],
-          status: "REJECTED",
-          stnk: this.result.stnk[i],
-          paymentMethod:this.result.paymentMethod[i],
-          bookingId:this.result.bookingId[i]
+          status: this.transaction.status,
+          bookingId:this.transaction.bookingId
         };
+        console.log(data)
         http
           .post("/transaction/process", data)
           .catch(e => {
             console.log(e);
           });
         console.log(this.registerDriver.success);
+        console.log(data)
       }
     }
   };

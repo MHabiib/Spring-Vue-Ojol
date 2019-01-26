@@ -27,14 +27,15 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public boolean createTransaction(@RequestBody Transaction transaction) {
         Booking bookingData=bookingRepository.findById(transaction.getBookingId());
-        Driver driverData=driverRepository.findByStnk(transaction.getStnk());
-        Member memberData=memberRepository.findByName(transaction.getName());
-
+        Driver driverData=driverRepository.findByName(bookingData.getDriverName());
+        Member memberData=memberRepository.findByName(bookingData.getMemberName());
+        System.out.println(driverData);
+        System.out.println(memberData);
         if (bookingData==null||driverData==null||memberData==null)
             return false;
         else{
             if (transaction.getStatus().equals("ACCEPTED")) {
-                if (transaction.getPaymentMethod().equals("BLIPAY")){
+                if (bookingData.getPaymentMethod().equals("BLIPAY")){
                     memberData.setBalance(memberData.getBalance()-bookingData.getPrice());
                     driverData.setBalance(driverData.getBalance() + bookingData.getPrice());
                 }

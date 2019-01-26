@@ -42,7 +42,7 @@
               </sui-form-fields>
 
               <sui-button @click="$router.push('list-booking')" type="submit" primary>Book Now</sui-button>
-              <sui-button  @click="onSubmit2" floated="right">Book Everyday</sui-button>
+              <sui-button  @click="onSubmit2" floated="right">Book For Everyday</sui-button>
 
             </sui-form>
           </sui-segment>
